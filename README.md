@@ -44,45 +44,45 @@ pip install -r requirements.txt
 
 **Full pipeline with real AI:**
 ```bash
-python pipeline.py --real-model
+py pipeline.py --real-model
 ```
 
 **Quick test with simulation:**
 ```bash
-python pipeline.py
+py pipeline.py
 ```
 
 ### Command Options
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--real-model` | Use Cohere AI instead of simulation | `python pipeline.py --real-model` |
-| `--skip-ingest` | Skip downloading new data, use existing | `python pipeline.py --skip-ingest` |
-| `--mode` | Change prompt style | `python pipeline.py --mode summarize` |
+| `--real-model` | Use Cohere AI instead of simulation | `py pipeline.py --real-model` |
+| `--skip-ingest` | Skip downloading new data, use existing | `py pipeline.py --skip-ingest` |
+| `--mode` | Change prompt style | `py pipeline.py --mode summarize` |
 
 ### Common Combinations
 
 ```bash
 # Use existing data with real AI
-python pipeline.py --skip-ingest --real-model
+py pipeline.py --skip-ingest --real-model
 
 # Summarize facts instead of explaining
-python pipeline.py --real-model --mode summarize
+py pipeline.py --real-model --mode summarize
 
 # Custom prompt mode
-python pipeline.py --real-model --mode "find the humor in"
+py pipeline.py --real-model --mode "find the humor in"
 ```
 
 ### Individual Scripts
 
 **Just fetch facts:**
 ```bash
-python ingest.py
+py ingest.py
 ```
 
 **Just process existing facts:**
 ```bash
-python prompt_engine.py
+py prompt_engine.py
 ```
 
 ## Pipeline Steps
@@ -151,4 +151,4 @@ Open source - feel free to use and modify!
 
 ---
 
-**Quick Start:** `python pipeline.py --real-model` 🚀
+**Quick Start:** `py pipeline.py --real-model` 🚀

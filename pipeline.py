@@ -1,3 +1,4 @@
+# pipeline.py
 import argparse
 import json
 import os
@@ -26,7 +27,8 @@ def save_output(results, mode="explain"):
     
     print(f"Results saved to {json_filename} and {txt_filename}")
 
-def transform_data(facts, mode="explain"):
+# def transform_data(facts, mode="explain"):
+def transform_data(facts, mode="explain", use_real_model=False):
     """Transform facts using prompt engine with specified mode."""
     results = []
     
@@ -40,7 +42,9 @@ def transform_data(facts, mode="explain"):
             prompt = f"{mode} this fun fact: {fact}"
         
         # Get response from model
-        output = call_model(prompt)
+        # output = call_model(prompt)
+        output = call_model(prompt, use_real_model=use_real_model)
+
         
         results.append({
             'fact': fact,
@@ -51,7 +55,8 @@ def transform_data(facts, mode="explain"):
     
     return results
 
-def run_pipeline(skip_ingest=False, mode="explain"):
+# def run_pipeline(skip_ingest=False, mode="explain"):
+def run_pipeline(skip_ingest=False, mode="explain", use_real_model=False):
     """Run the complete pipeline."""
     print(f"Starting pipeline with mode: {mode}")
     
@@ -72,7 +77,8 @@ def run_pipeline(skip_ingest=False, mode="explain"):
         print("Error: No facts found. Please run without --skip-ingest first.")
         return
     
-    results = transform_data(facts, mode)
+    # results = transform_data(facts, mode)
+    results = transform_data(facts, mode=mode, use_real_model=use_real_model)
     print(f"Processed {len(results)} facts")
     
     # Step 3: Save the output
@@ -102,10 +108,17 @@ def main():
         default="explain",
         help='Customize the prompt mode (e.g., "explain", "summarize")'
     )
-    
+
+    parser.add_argument(
+        "--real-model",
+        action="store_true",
+        help="Use the real Cohere model instead of simulation"
+    )
+
     args = parser.parse_args()
-    
-    run_pipeline(skip_ingest=args.skip_ingest, mode=args.mode)
+
+    run_pipeline(skip_ingest=args.skip_ingest, mode=args.mode, use_real_model=args.real_model)
+
 
 if __name__ == "__main__":
     main()

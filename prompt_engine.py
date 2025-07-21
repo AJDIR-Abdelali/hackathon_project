@@ -1,6 +1,8 @@
+# prompt_engine.py
 import os
 import glob
 import cohere
+import argparse
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -102,8 +104,19 @@ def process_facts(use_real_model=False):
     return results
 
 if __name__ == '__main__':
-    # results = process_facts()
-    results = process_facts(use_real_model=True)  # Use real model by default when run directly
+    # # results = process_facts()
+    # results = process_facts(use_real_model=True)  # Use real model by default when run directly
+    # for result in results:
+    #     print(f"Fact: {result['fact']}")
+    #     print(f"Insight: {result['insight']}")
+    #     print("-" * 50)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--real-model", action="store_true", help="Use real Cohere model")
+    args = parser.parse_args()
+
+    results = process_facts(use_real_model=args.real_model)
+
     for result in results:
         print(f"Fact: {result['fact']}")
         print(f"Insight: {result['insight']}")
